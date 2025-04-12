@@ -49,7 +49,7 @@ Microfinance Service Analysis
 🧮 Created new features from existing data
 
 
-## 🏗 Slide 7: Model Building
+## 🏗 Slide 6: Model Building
 🧪 Splitted dataset using train_test_split()
 
 🤖 Algorithms Used:
@@ -62,18 +62,25 @@ Microfinance Service Analysis
  XGBoostClassifier
  AdaboostClassifier
 
-## 📊 Slide 8: Model Evaluation
+## 📊 Slide 7: Model Evaluation
 ✅ Accuracy Score
 
 🧾 Classification Report
 
 🔁 Confusion Matrix
 
-## 🏁 Slide 9: Results & Insights
+## 🏁 Slide 8: Results & Insights
 
 🥇 Best Model: RandomForestClassifier
 
 📌 Accuracy Achieved: ~[88%-90%]
 
  PCA helped reduce noise & improved model stability
+
+ ## 🌐 Slide 9: Streamlit Deployment
+Deployment via Streamlit:
+
+Created an interactive dashboard for model predictions and visualizations.
+
+Used Streamlit to showcase predictions, accuracy scores, and insights in a user-friendly interface.
 
