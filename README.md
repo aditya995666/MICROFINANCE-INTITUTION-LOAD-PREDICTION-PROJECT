@@ -54,13 +54,13 @@ Microfinance Service Analysis
 
 🤖 Algorithms Used:
 
- LogisticRegression
- SVM
- DecisionTreeClassifier
- RandomForestClassifier
- GradientBoostingClassifier
- XGBoostClassifier
- AdaboostClassifier
+ -LogisticRegression
+- SVM
+- DecisionTreeClassifier
+- RandomForestClassifier
+- GradientBoostingClassifier
+- XGBoostClassifier
+ -AdaboostClassifier
 
 ## 📊 Slide 7: Model Evaluation
 ✅ Accuracy Score
