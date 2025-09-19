@@ -1,4 +1,4 @@
-## Project Link of Google Drive  :- https://drive.google.com/drive/folders/15CIi_Dn2LR77U_uCK_nmKY52T4ImPLR9?usp=sharing
+## Project Link  Google Drive  :- https://drive.google.com/drive/folders/15CIi_Dn2LR77U_uCK_nmKY52T4ImPLR9?usp=sharing
 
 
 Microfinance Service Analysis - Technical PowerPoint Content
