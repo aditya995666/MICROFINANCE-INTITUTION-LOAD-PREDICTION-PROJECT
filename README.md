@@ -69,7 +69,7 @@ Confusion Matrix
 
 Slide 8: Results & Insights
 
-Best Model: RandomForestClassifier
+Best Model: XGBOOST
 
 Accuracy Achieved: ~88%–90%
 
