@@ -1,76 +1,158 @@
 ## Project Link  Google Drive  :- https://drive.google.com/drive/folders/15CIi_Dn2LR77U_uCK_nmKY52T4ImPLR9?usp=sharing
 
 
+# Slide 1: Title Slide
+# Microfinance Service: Customer Churn Prediction
 
 
-# 💳 Microfinance Service Project: Presentation Outline
-#
-# Slide 1: Title Slide 🎯
-Title	Microfinance Service Prediction: Risk and Uptake Analysis
-Subtitle	Leveraging Telecom and Loan History Data for Binary Classification
-Project Goal	Develop a machine learning model to predict Service Uptake/Default Risk among microfinance customers.
+# Slide 2: Project Overview
+Project Goal:
 
-#Slide 2: Project Context & Objective 🧠
-Title	Business Problem and Data Pipeline
-Business Problem	A microfinance provider needs to accurately identify which customers are most likely to utilize a service or default on a small loan. This informs targeted marketing, pricing, and risk management.
-Dataset Source	Customer behavioral data (e.g., telecom usage, loan history) spanning 30 and 90-day windows.
-Target Variable	label (Binary Classification): 1 (Action/Target Customer) or 0 (No Action/Non-Target).
-Key Metrics	F1-Score, AUC-ROC, and Precision/Recall. F1 is prioritized due to likely class imbalance.
-Methodology	1. EDA & Cleaning → 2. Feature Engineering → 3. Imbalance Handling → 4. Model Training (Classification) → 5. Evaluation
+To build a machine learning model that can accurately predict customer churn for a micro-credit service.
 
-# Slide 3: Exploratory Data Analysis (EDA) - Target & Imbalance 📊
-Title	Target Variable Distribution: Addressing Imbalance
-Insight	The target variable (label) is critical but is almost always imbalanced in financial/service uptake data (i.e., far more 0s than 1s).
-Implication	Models trained on raw data will be biased toward predicting the majority class (0), leading to poor detection of the critical minority class (1).
-Key Visualization 1	Bar Plot: Target Variable (label) Count
-Instruction: Insert a bar chart (or count plot) clearly showing the count of '0' vs. '1'.
-Data Structure	The dataset contains 37 features, including financial metrics (loan counts, amounts) and usage metrics (daily decrease in usage, rental charges) over 30 and 90 days.
+Objectives:
 
-#  Slide 4: EDA - Behavioral Feature Analysis 📈
-Title	Bivariate Analysis of Key Predictors
-Focus	Comparing the distribution of important numerical features between the two classes (label 0 vs. label 1).
-Key Feature Group	Loan and Usage Metrics: Columns ending in 30 and 90 (e.g., daily_decr30, rental90, maxamnt_loans30).
-Key Visualization 2	Box Plot / KDE Plot: daily_decr30 vs. label
-Instruction: Insert a plot (e.g., a Box Plot or KDE plot) showing the distribution of daily decrease in usage over 30 days (daily_decr30) for customers with label=0 and label=1.
-Expected Insight	Customers in the target class (1) are expected to show significantly different usage patterns (e.g., higher or more consistent activity) than non-target customers (0).
+Data Cleaning & Preparation: To process and clean the raw customer data to make it suitable for modeling.
 
-# Slide 5: Data Cleaning & Preprocessing ⚙️
-Title	Data Preparation and Feature Handling
-Feature Removal	Dropped irrelevant/unique identifier columns like msisdn, pcircle (if single value), and Unnamed: 0.
-Handling Dates	pdate (Date of sanction) converted to numerical features (e.g., Days since epoch, Month, Day of Week) or was dropped if deemed irrelevant to loan prediction.
-Handling Outliers/Skewness	Outliers in financial features (like daily_decr30) were likely handled using techniques like log transformation or clipping, as these features often have heavily skewed distributions.
-Feature Scaling	Standardization (StandardScaler) or Normalization (MinMaxScaler) applied to numerical features for model compatibility.
+Exploratory Data Analysis (EDA): To uncover insights and patterns related to customer behavior and churn.
 
-# Slide 6: Feature Engineering 🧪
-Title	Creating Predictive Ratio Features
-Goal	Extract stable, predictive patterns by creating ratio and difference features between 30-day and 90-day metrics.
-New Features Examples	* Usage\_Stability\_Ratio: daily_decr30 / daily_decr90 (Measures recent change in usage)
-* Loan\_Continuity: amnt_loans30 / amnt_loans90 (Measures if loan amounts are stable or changing)
-* AON\_Log: log(aon) (Used to normalize the distribution of 'Age On Network' for linearity)
-Benefit	These ratio features are often less sensitive to absolute spend levels and better capture the rate of change in customer behavior, which is key for risk assessment.
+Model Development: To train and evaluate multiple classification models to identify the best predictor of churn.
 
-# Slide 7: Addressing Class Imbalance
-Title	Mitigating Bias: The Imbalance Problem
-Problem	The severe imbalance (Slide 3) causes models to learn poorly from the minority class (1).
-Solution (Likely Used)	Employed one or more of the following techniques:
-* Oversampling (e.g., SMOTE): Artificially creates synthetic data points for the minority class.
-* Undersampling (e.g., NearMiss): Reduces the number of majority class samples.
-* Class Weighting: Assigns a higher penalty/weight to misclassifications of the minority class (e.g., in Logistic Regression or Tree Models).
-Benefit	Ensures the model learns the distinguishing characteristics of the target customer group (label=1).
+Handling Imbalance: To address the class imbalance in the dataset to ensure the model is not biased towards the majority class.
 
-# Slide 8: Model Training & Selection 🤖
-Title	Classifier Evaluation and Hyperparameter Tuning
-Models Evaluated	Typically: Logistic Regression, Decision Tree, Random Forest, Gradient Boosting (XGBoost/LightGBM).
-Best Performer	[RANDOMFOREST CLASSIFIER ] (e.g., XGBoost, known for handling tabular data and imbalance well).
-Tuning Strategy	Used GridSearchCV or RandomizedSearchCV with Cross-Validation to optimize parameters (e.g., n_estimators, max_depth, learning_rate).
-Rationale	Ensemble methods (like Gradient Boosting or Random Forest) are generally chosen as they capture the non-linear relationship between usage patterns and risk better than linear models.
+# Slide 3: Data Loading and Initial Exploration
+Dataset:
 
-# Slide 9: Results and Model Evaluation ✅
-Title	Final Performance and Business Impact
-* AUC-ROC Score: [Insert Specific Value] (Measures the model's ability to distinguish between classes)
-* F1-Score: [Insert Specific Value] (The harmonic mean of Precision and Recall, best for imbalanced data)
-Key Visualization 3	Confusion Matrix (Test/Validation Set)
-Instruction: Insert the confusion matrix plot. Highlight the True Positives (Correctly predicted targets) and False Negatives (Missed targets), as minimizing False Negatives is critical for business success.
-Key Visualization 4	ROC Curve
-Instruction: Insert the Receiver Operating Characteristic (ROC) curve plot. The area under the curve (AUC) should be high (closer to 1.0).e.
+The project uses a single dataset: Micro-credit-Data-file (1).csv.
+
+Initial Data Profile:
+
+Dimensions: The dataset contains 209,593 records and 37 features.
+
+Content: Features include customer demographics (age on network), transactional data (recharge amounts, daily decrease), loan history (count and amount of loans), and payback behavior.
+
+Target Variable: The label column (renamed to churn_label) indicates whether a customer is likely to churn.
+
+# Slide 4: Data Cleaning and Preprocessing
+Key Steps Performed:
+
+Column Renaming: All columns were renamed to be more descriptive and understandable (e.g., aon to age_on_network_days).
+
+Data Integrity Check: The dataset was checked for null values and duplicates. None were found, indicating good initial data quality.
+
+Feature Dropping: The row_id column was dropped as it serves only as an index.
+
+Data Type Conversion:
+
+Object-type columns like customer_id and record_date were converted into numerical formats.
+
+The customer_circle column was label-encoded to be used in the model.
+
+# Slide 5: Exploratory Data Analysis (EDA) - Target Variable
+Churn Label Distribution:
+
+A count plot of the churn_label revealed a significant class imbalance.
+
+The vast majority of customers are labeled as '1' (likely to churn/default), while a much smaller portion are labeled as '0'.
+
+Implication:
+
+This imbalance can bias the model, causing it to perform poorly on the minority class. This issue was addressed later using the SMOTE technique.
+
+(A bar chart showing the imbalanced distribution of the 'churn_label' would be included here.)
+
+# Slide 6: EDA - Data Distributions & Outliers
+Analysis of Feature Distributions:
+
+Distribution plots (distplots) were used to visualize the spread and skewness of various numerical features like age_on_network_days, avg_daily_decr_30d, and total_rental_30d.
+
+Many features showed significant skewness and the presence of outliers.
+
+Outlier Detection:
+
+Box plots were generated for all numerical columns to visually identify data points lying far outside the typical range.
+
+(Include examples of a distplot and a box plot from the notebook on this slide.)
+
+# Slide 7: Outlier Treatment
+Method:
+
+Outliers were handled by removing values that fell outside the range defined by the Interquartile Range (IQR) method.
+
+This process helps in creating a more robust model that is less sensitive to extreme values.
+
+Impact:
+
+After outlier removal, the shape of the dataset was reduced, leading to a cleaner and more representative sample for model training.
+
+# Slide 8: Handling Class Imbalance with SMOTE
+Problem:
+
+As identified during EDA, the target variable was highly imbalanced.
+
+Solution: SMOTE (Synthetic Minority Over-sampling Technique)
+
+SMOTE was applied to the training data to balance the classes.
+
+It works by creating synthetic samples of the minority class, thus providing the model with a more balanced view of the data. This helps prevent the model from simply predicting the majority class every time.
+
+# Slide 9: Model Building
+Machine Learning Models Used:
+
+A variety of classification algorithms were trained to find the best performer:
+
+Logistic Regression
+
+Decision Tree Classifier
+
+Random Forest Classifier
+
+AdaBoost Classifier
+
+Gradient Boosting Classifier
+
+Process:
+
+The dataset was split into features (X) and the target variable (y).
+
+The data was then divided into training and testing sets (80/20 split).
+
+Each model was trained on the SMOTE-balanced training data.
+
+# Slide 10: Model Evaluation
+Metrics Used:
+
+The performance of each model was evaluated using standard classification metrics:
+
+Accuracy: Overall correctness of the model.
+
+Precision: The ratio of correctly predicted positive observations to the total predicted positives.
+
+Recall: The ratio of correctly predicted positive observations to all observations in the actual class.
+
+F1-Score: The weighted average of Precision and Recall.
+
+Confusion Matrix: A table showing the performance of the classification model on a set of test data for which the true values are known.
+
+(A sample Classification Report and Confusion Matrix from one of the models would be displayed here.)
+
+# Slide 11: Results & Best Model
+Performance Summary:
+
+The classification reports for all models were analyzed to compare their performance.
+
+The Random Forest Classifier and Gradient Boosting Classifier generally showed the highest F1-scores and a good balance between precision and recall, making them the top-performing models for this task.
+
+# Conclusion:
+
+Based on the evaluation, the Gradient Boosting Classifier was selected as the most suitable model for predicting customer churn.
+
+Slide 12: Conclusion & Future Work
+Summary of Findings:
+
+The project successfully developed a model to predict customer churn using various user behavior features.
+
+Data cleaning, outlier treatment, and handling class imbalance with SMOTE were critical steps for building an effective model.
+
+Ensemble methods like Random Forest and Gradient Boosting proved to be the most effective for this classification problem.curve (AUC) should be high (closer to 1.0).e.
 
