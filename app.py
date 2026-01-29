@@ -6,11 +6,9 @@ from datetime import date
 from utils.preprocess import preprocess_input
 from utils.pdf_reader import read_pdf
 
-# ================= LOAD MODEL =================
 pipeline = joblib.load("model/churn_pipeline.pkl")
 feature_columns = joblib.load("model/feature_columns.pkl")
 
-# ================= FRIENDLY DISPLAY NAMES =================
 display_names = {
     "age_on_network_days": "Customer Age on Network (Days)",
     "avg_daily_decr_30d": "Avg Daily Decrement (30 Days)",
@@ -28,15 +26,12 @@ display_names = {
     "days_since_last_recharge": "Last Recharge Date"
 }
 
-# ================= PAGE CONFIG =================
 st.set_page_config(page_title="Churn Prediction App", layout="wide")
-st.title("📊 Customer Churn Prediction System")
+st.title("Customer Churn Prediction System")
 
-tab1, tab2 = st.tabs(["✍ Manual Input", "📄 File Upload"])
+tab1, tab2 = st.tabs(["Manual Input", "File Upload"])
 
-# =================================================
-# TAB 1 : MANUAL INPUT
-# =================================================
+
 with tab1:
     st.subheader("Enter Customer Details")
 
@@ -45,7 +40,6 @@ with tab1:
 
     for i, col in enumerate(feature_columns):
 
-        # ✅ SPECIAL CASE: DATE INPUT
         if col == "days_since_last_recharge":
             last_recharge_date = cols[i % 3].date_input(
                 "Last Recharge Date",
@@ -67,9 +61,7 @@ with tab1:
         st.success(f"Prediction: {'Loan Repay' if pred==1 else 'Not Loan Repay'}")
         st.info(f"Churn Probability: {proba:.2f}")
 
-# =================================================
-# TAB 2 : FILE UPLOAD (UNCHANGED)
-# =================================================
+
 with tab2:
     st.subheader("Upload PDF / CSV / TXT File")
 
@@ -84,7 +76,7 @@ with tab2:
         if file_ext == "pdf":
             df = read_pdf(uploaded_file)
             if df is None:
-                st.error("❌ No table found in PDF")
+                st.error(" No table found in PDF")
 
         elif file_ext == "csv":
             df = pd.read_csv(uploaded_file)
@@ -96,7 +88,7 @@ with tab2:
             df = None
 
         if df is not None:
-            st.success("✅ File Loaded Successfully")
+            st.success("File Loaded Successfully")
             st.dataframe(df.head())
 
             df_clean = preprocess_input(df, feature_columns)
@@ -104,11 +96,11 @@ with tab2:
             df["Churn_Prediction"] = pipeline.predict(df_clean)
             df["Churn_Probability"] = pipeline.predict_proba(df_clean)[:, 1]
 
-            st.success("✅ Prediction Completed")
+            st.success("Prediction Completed")
             st.dataframe(df.head())
 
             st.download_button(
-                "⬇️ Download Result CSV",
+                "Download Result CSV",
                 df.to_csv(index=False),
                 file_name="churn_predictions.csv",
                 mime="text/csv"
